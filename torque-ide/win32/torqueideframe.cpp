@@ -67,7 +67,7 @@ TorqueIDEFrame::TorqueIDEFrame(const wxChar *title) : wxFrame((wxFrame *) NULL, 
 
 	SetMenuBar(menubar);
 
-		// Scintilla initialization
+	// Scintilla initialization
 	scintilla->SetLexer(wxSTC_LEX_CPP); // use the C++ lexer since TorqueSCRIPT is almost C++.
 	// CPP Lexer Properties
 	scintilla->SetProperty("fold.comment", "1");
@@ -168,7 +168,7 @@ END_EVENT_TABLE()
 
 void TorqueIDEFrame::OnMenuFileNew(wxCommandEvent &event)
 {
-  wxLogMessage("File New Menu Selected");
+	wxLogMessage("File New Menu Selected");
 }
 
 void TorqueIDEFrame::OnMenuFileOpen(wxCommandEvent &event)
@@ -187,7 +187,7 @@ void TorqueIDEFrame::OnMenuFileOpen(wxCommandEvent &event)
 
 void TorqueIDEFrame::OnMenuFileSave(wxCommandEvent &event)
 {
-  if(scintilla->GetModify())
+	if(scintilla->GetModify())
 	{
 		wxLogMessage("File is modified!");
 		scintilla->SetSavePoint();
@@ -210,14 +210,14 @@ void TorqueIDEFrame::OnMenuFileSaveAs(wxCommandEvent &event)
 
 void TorqueIDEFrame::OnMenuFileQuit(wxCommandEvent &event)
 {
-  Close(FALSE);
+	Close(FALSE);
 }
 
 void TorqueIDEFrame::OnMenuEditUndo(wxCommandEvent &event)
 {
-  if(scintilla->CanUndo())
+	if(scintilla->CanUndo())
 	{
-	  scintilla->Undo();
+		scintilla->Undo();
 	}
 	else
 	{
@@ -227,29 +227,29 @@ void TorqueIDEFrame::OnMenuEditUndo(wxCommandEvent &event)
 
 void TorqueIDEFrame::OnMenuEditRedo(wxCommandEvent &event)
 {
-  if(scintilla->CanRedo())
+	if(scintilla->CanRedo())
 	{
-	  scintilla->Redo();
+		scintilla->Redo();
 	}
 	else
 	{
-	  wxBell();
+		wxBell();
 	}
 }
 
 void TorqueIDEFrame::OnMenuEditCut(wxCommandEvent &event)
 {
-  scintilla->Cut();
+	scintilla->Cut();
 }
 
 void TorqueIDEFrame::OnMenuEditCopy(wxCommandEvent &event)
 {
-  scintilla->Copy();
+	scintilla->Copy();
 }
 
 void TorqueIDEFrame::OnMenuEditPaste(wxCommandEvent &event)
 {
-  if(scintilla->CanPaste())
+	if(scintilla->CanPaste())
 	{
 		scintilla->Paste();
 	}
@@ -261,16 +261,16 @@ void TorqueIDEFrame::OnMenuEditPaste(wxCommandEvent &event)
 
 void TorqueIDEFrame::OnMenuEditClear(wxCommandEvent &event)
 {
-  scintilla->Clear();
+	scintilla->Clear();
 }
 
 void TorqueIDEFrame::OnMenuHelpHelp(wxCommandEvent &event)
 {
-  wxLogMessage("Help Help Menu Selected");
+	wxLogMessage("Help Help Menu Selected");
 }
 
 void TorqueIDEFrame::OnMenuHelpAbout(wxCommandEvent &event)
 {
-  wxLogMessage("Help About Menu Selected");
+	wxLogMessage("Help About Menu Selected");
 }
 

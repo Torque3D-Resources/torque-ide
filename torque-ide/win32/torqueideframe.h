@@ -31,93 +31,93 @@
 
 class TorqueIDEFrame : public wxFrame
 {
-  public:
-    /**
-	 * Constructor
-	 */
-	TorqueIDEFrame( const wxChar *title );
+	public:
+		/**
+		* Constructor
+		*/
+		TorqueIDEFrame( const wxChar *title );
 
-	/**
-	 * Destructor
-	 */
-	~TorqueIDEFrame();
+		/**
+		 * Destructor
+		 */
+		~TorqueIDEFrame();
 
-	/**
-	* Processes menu File|New
-	*/
-	void OnMenuFileNew(wxCommandEvent &event);
+		/**
+		* Processes menu File|New
+		*/
+		void OnMenuFileNew(wxCommandEvent &event);
 
-	/**
-	* Processes menu File|Open
-	*/
-	void OnMenuFileOpen(wxCommandEvent &event);
+		/**
+		* Processes menu File|Open
+		*/
+		void OnMenuFileOpen(wxCommandEvent &event);
 
-	/**
-	* Processes menu File|Save
-	*/
-	void OnMenuFileSave(wxCommandEvent &event);
+		/**
+		* Processes menu File|Save
+		*/
+		void OnMenuFileSave(wxCommandEvent &event);
 
-	/**
-	* Processes menu File|Save As
-	*/
-	void OnMenuFileSaveAs(wxCommandEvent &event);
+		/**
+		* Processes menu File|Save As
+		*/
+		void OnMenuFileSaveAs(wxCommandEvent &event);
 
-	/**
-	* Processes menu File|Quit
-	*/
-	void OnMenuFileQuit(wxCommandEvent &event);
+		/**
+		* Processes menu File|Quit
+		*/
+		void OnMenuFileQuit(wxCommandEvent &event);
 
-	/**
-	* Processes menu Edit|Undo
-	*/
-	void OnMenuEditUndo(wxCommandEvent &event);
+		/**
+		* Processes menu Edit|Undo
+		*/
+		void OnMenuEditUndo(wxCommandEvent &event);
 
-	/**
-	* Processes menu Edit|Redo
-	*/
-	void OnMenuEditRedo(wxCommandEvent &event);
+		/**
+		* Processes menu Edit|Redo
+		*/
+		void OnMenuEditRedo(wxCommandEvent &event);
 
-	/**
-	* Processes menu Edit|Cut
-	*/
-	void OnMenuEditCut(wxCommandEvent &event);
+		/**
+		* Processes menu Edit|Cut
+		*/
+		void OnMenuEditCut(wxCommandEvent &event);
 
-	/**
-	* Processes menu Edit|Copy
-	*/
-	void OnMenuEditCopy(wxCommandEvent &event);
+		/**
+		* Processes menu Edit|Copy
+		*/
+		void OnMenuEditCopy(wxCommandEvent &event);
 
-	/**
-	* Processes menu Edit|Paste
-	*/
-	void OnMenuEditPaste(wxCommandEvent &event);
-	
-	/**
-	* Processes menu Edit|Clear
-	*/
-	void OnMenuEditClear(wxCommandEvent &event);
+		/**
+		* Processes menu Edit|Paste
+		*/
+		void OnMenuEditPaste(wxCommandEvent &event);
 
-	/**
-	* Processes menu Help|Help
-	*/
-	void OnMenuHelpHelp(wxCommandEvent &event);
+		/**
+		* Processes menu Edit|Clear
+		*/
+		void OnMenuEditClear(wxCommandEvent &event);
 
-	/**
-	* Processes menu Help|About
-	*/
-    void OnMenuHelpAbout(wxCommandEvent &event);
+		/**
+		* Processes menu Help|Help
+		*/
+		void OnMenuHelpHelp(wxCommandEvent &event);
 
-  protected:
-    DECLARE_EVENT_TABLE()
+		/**
+		* Processes menu Help|About
+		*/
+		void OnMenuHelpAbout(wxCommandEvent &event);
+
+	protected:
+		DECLARE_EVENT_TABLE()
 
   private:
-	wxStyledTextCtrl *scintilla;
-	wxStatusBar *statusbar;
-	wxToolBar *toolbar;
-	wxMenuBar *menubar;
-	wxMenu *menu_file;
-	wxMenu *menu_edit;
-	wxMenu *menu_help;
+		wxStyledTextCtrl *scintilla;
+		wxStatusBar *statusbar;
+		wxToolBar *toolbar;
+		wxMenuBar *menubar;
+		wxMenu *menu_file;
+		wxMenu *menu_edit;
+		wxMenu *menu_help;
 
 	enum
 	{

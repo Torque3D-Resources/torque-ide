@@ -33,19 +33,19 @@ class TorqueIDEAbout : public wxDialog
 		 * Constructor
 		 */
 		TorqueIDEAbout(wxWindow *parent);
-		
+
 		/**
 		 * Destructor
 		 */
 		virtual ~TorqueIDEAbout() { }
-		
+
 		/**
 		 * Sets the text on the dialog
 		 */
 		void SetText(const wxString& text);
 		
 	private:
-	  wxStaticText *about_text;
+		wxStaticText *about_text;
 		wxButton *ok;
 		
 };

@@ -42,8 +42,8 @@ bool TorqueIDEApp::OnInit()
 
 	frame->Show(TRUE);
 
-  frame->Maximize(!frame->IsMaximized()); // If the frame is not maximized, maximize it.
-  // TODO: Add option to choose whether or not to max the frame.
+	frame->Maximize(!frame->IsMaximized()); // If the frame is not maximized, maximize it.
+	// TODO: Add option to choose whether or not to max the frame.
 
 	SetTopWindow(frame);
 

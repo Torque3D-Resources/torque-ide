@@ -32,10 +32,10 @@
 class TorqueIDEApp : public wxApp
 {
 	public:
-	    /**
-		 * Think of this as the "main" method.
-		 */
-	    virtual bool OnInit();
+		/**
+		* Think of this as the "main" method.
+		*/
+		virtual bool OnInit();
 };
 
 DECLARE_APP(TorqueIDEApp);
