@@ -24,13 +24,20 @@
  * Boston, MA 02111-1307 USA
  */
 
+#ifndef _TORQUEIDEAPP_H
+#define _TORQUEIDEAPP_H
+
 #include <wx/wx.h>
 
-class torque_ide:public wxApp
+class TorqueIDEApp : public wxApp
 {
-public:
-	bool OnInit();
-	int OnExit();
+	public:
+	    /**
+		 * Think of this as the "main" method.
+		 */
+	    virtual bool OnInit();
 };
 
- 
+DECLARE_APP(TorqueIDEApp);
+
+#endif _TORQUEIDEAPP_H
