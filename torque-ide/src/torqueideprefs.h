@@ -30,7 +30,7 @@
 #include <wx/stc/stc.h>
 
 // STC Related Prefs
-#define DEFAULT_LANGUAGE _("<default>")
+#define DEFAULT_LANGUAGE _("*.*")
 #define STYLE_TYPES_COUNT 32
 
 // General Style Types

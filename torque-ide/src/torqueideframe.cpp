@@ -31,7 +31,13 @@
 	#include <wx/wx.h>
 #endif
 
-#include <wx/stc/stc.h>
+#include <wx/config.h>
+#include <wx/filedlg.h>
+#include <wx/filename.h>
+#include <wx/notebook.h>
+#include <wx/settings.h>
+#include <wx/string.h>
+#include <wx/image.h>
 
 // For Windows and OS/2, icon is a resource.
 #if defined(__WXGTK__) || defined(__WXMOTIF__) || defined(__WXMAC__) || defined(__WXMGL__) || defined(__WXX11__)
@@ -43,10 +49,11 @@
 
 #include "torqueideframe.h"
 #include "torqueideabout.h"
+#include "torqueidestc.h"
 
 TorqueIDEFrame::TorqueIDEFrame(const wxString &title) : wxFrame ((wxFrame *)NULL, wxID_ANY, title, wxDefaultPosition, wxSize(750,550), wxDEFAULT_FRAME_STYLE | wxNO_FULL_REPAINT_ON_RESIZE)
 {
-	scintilla = new wxStyledTextCtrl(this, -1);  // Scintilla Edit
+	scintilla = new TorqueIDESTC(this); // The other params default
 	
 	// StatusBar
 	InitStatusBar();
@@ -57,80 +64,10 @@ TorqueIDEFrame::TorqueIDEFrame(const wxString &title) : wxFrame ((wxFrame *)NULL
 	// Menu
 	InitMenu();
 
-	// Scintilla initialization
-	scintilla->SetLexer(wxSTC_LEX_CPP); // use the C++ lexer since TorqueSCRIPT is almost C++.
-	// CPP Lexer Properties
-	scintilla->SetProperty("fold.comment", "1");
-	scintilla->SetProperty("fold.preprocessor", "1");
-	scintilla->SetProperty("fold.compact", "1"); 
-	// Line Numbers
+	// Margin for line numbers
 	scintilla->SetMarginWidth(0, 30);        // turn on the linenumbers margin, set width to 30pixels
 	scintilla->SetMarginWidth(1, 0);            // turn off the folding margin
 	scintilla->SetMarginType(0, 1);            // set margin type to linenumbers
-	// Keywords
-	scintilla->SetKeyWords(0, wxT("break case continue datablock default else false function if for new or package return switch switch$ true and while"));
-	scintilla->SetKeyWords(1, wxT("OpenALInitDriver OpenALShutdownDriver OpenALRegisterExtensions"
-						" alGetString alxCreateSource alxSourcef alxSource3f alxSourcei"
-						" alxGetSourcef alxGetSource3f alxGetSourcei alxPlay alxStop"
-						" alxStopAll alxIsPlaying alxListener alListener3f alxGetListenerf"
-						" alxGetListener3f alxGetListeneri alxGetChannelVolume alxSetChannelVolume"
-						" dumpConsoleClasses expandFilename strcmp stricmp strlen strstr"
-						" strpos ltrim rtrim trim sripChars strlwr strupr strchr strreplace"
-						" getSubStr getWord getWords setWord removeWord getWordCount"
-						" getField getFields setField removeField getFieldCount getRecord"
-						" getRecords setRecord  removeRecord getRecordCount firstWord restWords"
-						" detag getTag echo warn error expandEscape collapseEscape"
-						" quit call compile exec export deleteVariables trace debug"
-						" findFirstFile findNextFile getFileCount getFileCRC isFile"
-						" isWriteableFileName fileExt fileBase fileName filePath nextToken"
-						" setLogMode setEchoFileLoads backtrace isPackage activatePackage"
-						" deactivatePackage nameToID isObject cancel isEventPending schedule"
-						" deleteDataBlocks telnetSetParameters dbgSetParameters dnetSetLogging"
-						" setNPatch toggleNPatch increaseNPatch decreaseNPatch setFSAA"
-						" IncreaseFSAA decreaseFSAA setOpenGLMipReduction setOpenGLSkyMipReduction"
-						" setOpenGLInteriorMipReduction setOpenGLTextureCompressionHint"
-						" setOpenGLAnisotropy clearTextureHolds addMaterialMapping aiConnect"
-						" aiAddPlayer setPowerAudioProfiles calcExplosionCoverage"
-						" gotoWebPage deactivateDirectInput activateDirectInput strToPlayerName"
-						" stripTrailingSpaces setDefaultFov setZoomSpeed setFov screenShot"
-						" panoramaScreenShot purgeResources lightScene flushTextureCache"
-						" dumpTextureStats dumpResourceStats getControlObjectAltitude"
-						" getControlObjectSpeed containerFindFirst containerFindNext"
-						" snapToggle getVersionNumber getVersionString getCompileTimeString"
-						" getSimTime getRealTime setNetPort lockMouse rebuildModPaths"
-						" setModPaths getModPaths createCanvas saveJournal playJournal"
-						" addTaggedString removeTaggedString getTaggedString buildTaggedString"
-						" commandToServer commandToClient allowConnections connect localConnect"
-						" startRecord stopRecord playDemo isDemoRecording msg queryMasterServer"
-						" cancelServerQuery stopServerQuery startHeartbeat stopHeartbeat"
-						" getServerCount setServerInfo setShadowDetailLevel showShapeLoad showSequenceLoad"
-						" showTurnLeft showTurnRight showUpdateThreadControl showSelectSequence"
-						" showPlay showStop showSetScale showSetPos showNewThread showDeleteThread"
-						" showToggleRoot showToggleStick showSetCamera showSetKeyboard showSetLightDirection"
-						" showSetDetailSlider StripMLControlChars setInteriorRenderMode setInteriorFocusedDebug"
-						" isPointInside VectorAdd VectorSub VectorScale VectorNormalize VectorDot"
-						" VectorCross VectorDist VectorLen VectorOrthoBasis MatrixCreate"
-						" MatrixMultiply MatrixMulVector MatrixMulPoint getBoxCenter"
-						" setRandomSeed getRandomSeed getRandom MatrixCreateFromEuler mSolveQuadratic"
-						" mSolveCubic mSolveQuartic mFloor mCeil mFloatLength mAbs mSqrt"
-						" mPow mLog mSin mCos mTan mAsin mAcos mAtan mRadToDeg mDegToRad"
-						" ValidateMemory FreeMemoryDump dumpMemSnapshot redbookOpen redbookClose"
-						" redbookPlay redbookStop redbookGetTrackCount redbookGetVolume"
-						" redbookSetVolume redbookGetDeviceCount redbookGetDeviceName redbookGetLastError"
-						" videoSetGammaCorrection setDisplayDevice setScreenMode toggleFullScreen"
-						" isFullScreen switchBitDepth prevResolution nextResolution getResolution"
-						" setResolution setRes getDisplayDeviceList getResolutionList getVideoDriverInfo"
-						" isDeviceFullScreenOnly setVerticalSync profilerMarkerEnable profilerEnable"
-						" profilerDump profilerDumpToFile enableWinConsole isJoystickDetected"
-						" getJoystickAxes enableMouse disableMouse echoInputState toggleInputState"
-						" MathInit AddCardProfile addOSCardProfile getDesktopResolution activateKeyboard"
-						" deactivateKeyboard GLEnableLogging GLEnableOutline GLEnableMetrics"
-						" inputLog launchDedicatedServer isKoreanBuild debug_testx86unixmutex"
-						" debug_debugbreak resetLighting getMaxFrameAllocation dumpNetStringTable"
-						" InitContainerRadiusSearch ContainerSearchNext ContainerSearchCurrDist"
-						" ContainerSearchCurrRadiusDist ContainerRayCast ContainerBoxEmpty"
-						" pathOnMissionLoadDone makeTestTerrain getTerrainHeight")
-	); //end scintilla->SetKeyWords()
 }
 
 TorqueIDEFrame::~TorqueIDEFrame()
@@ -241,16 +178,15 @@ END_EVENT_TABLE()
 
 void TorqueIDEFrame::OnMenuFileNew(wxCommandEvent &event)
 {
-	wxLogMessage("File New Menu Selected");
+	wxBell();
 }
 
 void TorqueIDEFrame::OnMenuFileOpen(wxCommandEvent &event)
 {
 	wxFileDialog *dlg = new wxFileDialog(this, "Open", "", "", "TorqueSCRIPT Files(*.cs)|*.cs|All files(*.*)|*.*", wxOPEN, wxDefaultPosition);
-	if ( dlg->ShowModal() == wxID_OK )
+	if(dlg->ShowModal() == wxID_OK)
 	{
 		scintilla->LoadFile(dlg->GetPath());
-		scintilla->SetSavePoint();
 		SetStatusText(dlg->GetFilename(), 1);
 	}
 	dlg->Destroy();
@@ -260,7 +196,7 @@ void TorqueIDEFrame::OnMenuFileSave(wxCommandEvent &event)
 {
 	if(scintilla->GetModify())
 	{
-		wxLogMessage("File is modified!");
+		scintilla->SaveFile();
 		scintilla->SetSavePoint();
 	}
 }
@@ -268,7 +204,7 @@ void TorqueIDEFrame::OnMenuFileSave(wxCommandEvent &event)
 void TorqueIDEFrame::OnMenuFileSaveAs(wxCommandEvent &event)
 {
 	wxFileDialog *dlg = new wxFileDialog(this, "Save As", "", "", "TorqueSCRIPT Files(*.cs)|*.cs|All files(*.*)|*.*", wxSAVE, wxDefaultPosition);
-	if ( dlg->ShowModal() == wxID_OK )
+	if(dlg->ShowModal() == wxID_OK)
 	{
 		scintilla->SaveFile(dlg->GetPath());
 		scintilla->SetSavePoint();
@@ -279,7 +215,10 @@ void TorqueIDEFrame::OnMenuFileSaveAs(wxCommandEvent &event)
 
 void TorqueIDEFrame::OnMenuFileQuit(wxCommandEvent &event)
 {
-	Close(FALSE);
+	if(!scintilla->GetModify())
+	{
+		Close(FALSE);
+	}
 }
 
 void TorqueIDEFrame::OnMenuEditUndo(wxCommandEvent &event)
@@ -372,7 +311,7 @@ void TorqueIDEFrame::OnMenuSearchGoto(wxCommandEvent &event)
 
 void TorqueIDEFrame::OnMenuHelpHelp(wxCommandEvent &event)
 {
-	wxLogMessage("Help Help Menu Selected");
+	wxBell();
 }
 
 void TorqueIDEFrame::OnMenuHelpAbout(wxCommandEvent &event)

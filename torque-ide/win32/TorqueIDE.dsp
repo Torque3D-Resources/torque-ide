@@ -87,7 +87,19 @@ SOURCE=..\src\torqueideframe.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\torqueidescintilla.h
+SOURCE=..\src\torqueideprefs.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\torqueideprefs.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\torqueidestc.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\torqueidestc.h
 # End Source File
 # End Target
 # End Project

@@ -32,7 +32,7 @@
 	#include <wx/wx.h>
 #endif
 
-#include "TorqueIDEPrefs.h"
+#include "torqueideprefs.h"
 
 // Language Types
 const CommonInfo commonPrefs = {
@@ -45,7 +45,7 @@ const CommonInfo commonPrefs = {
     false, // readOnlyInitial
     false,  // wrapModeInitial
     false, // displayEOLEnable
-    false, // IndentGuideEnable
+    true, // IndentGuideEnable
     true,  // lineNumberEnable
     false, // longLineOnEnable
     false, // whiteSpaceEnable
@@ -115,7 +115,7 @@ wxChar* TorqueSCRIPTWordlist2 =
 const LanguageInfo languagePrefs [] = {
     // C++
     {_T("C++"),
-     _T("*.c;*.cc;*.cpp;*.cxx;*.cs;*.h;*.hh;*.hpp;*.hxx;*.sma"),
+     _T("*.c;*.cc;*.cpp;*.cxx;*.h;*.hh;*.hpp;*.hxx;*.sma"),
      wxSTC_LEX_CPP,
      {{TORQUEIDESTC_TYPE_DEFAULT, NULL},
       {TORQUEIDESTC_TYPE_COMMENT, NULL},

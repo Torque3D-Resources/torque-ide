@@ -27,7 +27,8 @@
  */
 
 #include <wx/frame.h>
-#include <wx/stc/stc.h>
+
+#include "torqueidestc.h"
 
 class TorqueIDEFrame : public wxFrame
 {
@@ -147,7 +148,7 @@ class TorqueIDEFrame : public wxFrame
 
 	private:
 		// Editor
-		wxStyledTextCtrl *scintilla;
+		TorqueIDESTC *scintilla;
 		
 		// Statusbar
 		wxStatusBar *statusbar;
