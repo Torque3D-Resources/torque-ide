@@ -1,5 +1,3 @@
-#ifndef _TORQUEIDEAPP_H
-#define _TORQUEIDEAPP_H
 /*
  * Torque IDE -- An open source integrated development environment for the
  *   Torque Game Engine
@@ -26,28 +24,19 @@
  * Boston, MA 02111-1307 USA
  */
 
-#include <wx/wx.h>
+// For compilers that supports precompilation, include "wx/wx.h"
+#include <wx/wxprec.h>
 
-class TorqueIDEApp : public wxApp
+#ifndef WX_PRECOMP
+	#include <wx/wx.h>
+#endif
+
+#include "torqueidestc.h"
+
+TorqueIDESTC::TorqueIDESTC()
 {
-	friend class TorqueIDEFrame;
-	friend class TorqueIDEAbout;
+}
 
-	public:
-		/**
-		* Think of this as the "main" method.
-		*/
-		virtual bool OnInit();
-
-		/**
-		* Think of this as a destructor.
-		*/
-		virtual int OnExit();
-	
-	private:
-		TorqueIDEFrame *frame;
-};
-
-DECLARE_APP(TorqueIDEApp);
-
-#endif _TORQUEIDEAPP_H
+TorqueIDESTC::~TorqueIDESTC()
+{
+}

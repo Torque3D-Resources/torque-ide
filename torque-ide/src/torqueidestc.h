@@ -1,5 +1,5 @@
-#ifndef _TORQUEIDEAPP_H
-#define _TORQUEIDEAPP_H
+#ifndef _TORQUEIDESCINTILLA_H
+#define _TORQUEIDESCINTILLA_H
 /*
  * Torque IDE -- An open source integrated development environment for the
  *   Torque Game Engine
@@ -26,28 +26,20 @@
  * Boston, MA 02111-1307 USA
  */
 
-#include <wx/wx.h>
+#include <wx/stc/stc.h>
 
-class TorqueIDEApp : public wxApp
+class TorqueIDESTC : public wxStyledTextCtrl
 {
-	friend class TorqueIDEFrame;
-	friend class TorqueIDEAbout;
-
 	public:
 		/**
-		* Think of this as the "main" method.
-		*/
-		virtual bool OnInit();
+		 * Constructor
+		 */
+		TorqueIDESTC();
 
 		/**
-		* Think of this as a destructor.
-		*/
-		virtual int OnExit();
-	
-	private:
-		TorqueIDEFrame *frame;
+		 * Destructor
+		 */
+		~TorqueIDESTC();
 };
 
-DECLARE_APP(TorqueIDEApp);
-
-#endif _TORQUEIDEAPP_H
+#endif _TORQUEIDESCINTILLA_H
