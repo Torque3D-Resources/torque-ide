@@ -55,7 +55,7 @@ LINK32=link.exe
 # Name "TorqueIDE - Win32 Release"
 # Begin Source File
 
-SOURCE=..\src\mondrian.ico
+SOURCE=..\src\torque.ico
 # End Source File
 # Begin Source File
 
