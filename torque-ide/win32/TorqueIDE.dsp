@@ -55,35 +55,39 @@ LINK32=link.exe
 # Name "TorqueIDE - Win32 Release"
 # Begin Source File
 
-SOURCE=.\TorqueIDE.rc
+SOURCE=..\src\mondrian.ico
 # End Source File
 # Begin Source File
 
-SOURCE=.\torqueideabout.cpp
+SOURCE=..\src\TorqueIDE.rc
 # End Source File
 # Begin Source File
 
-SOURCE=.\torqueideabout.h
+SOURCE=..\src\torqueideabout.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\torqueideapp.cpp
+SOURCE=..\src\torqueideabout.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\torqueideapp.h
+SOURCE=..\src\torqueideapp.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\torqueideframe.cpp
+SOURCE=..\src\torqueideapp.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\torqueideframe.h
+SOURCE=..\src\torqueideframe.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\torqueidescintilla.h
+SOURCE=..\src\torqueideframe.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\torqueidescintilla.h
 # End Source File
 # End Target
 # End Project
