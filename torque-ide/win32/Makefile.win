@@ -1,0 +1,32 @@
+# Project: torque-ide
+# Makefile created by Dev-C++ 4.9.9.0-wx-beta-6.4
+
+CPP  = g++.exe
+CC   = gcc.exe
+WINDRES = windres.exe
+RES  = 
+OBJ  = torque_ide.o torque_ide_frame.o $(RES)
+LINKOBJ  = torque_ide.o torque_ide_frame.o $(RES)
+LIBS =  -L"c:/dev-cpp/lib" -mwindows -lwxmsw25 -lwxmsw25_gl -lwxtiff -lwxjpeg -lwxpng -lwxzlib -lwxregex -lwxexpat -lkernel32 -luser32 -lgdi32 -lcomdlg32 -lwinspool -lwinmm -lshell32 -lcomctl32 -lole32 -loleaut32 -luuid -lrpcrt4 -ladvapi32 -lwsock32 -lodbc32 -lopengl32  
+INCS =  -I"c:/dev-cpp/include" 
+CXXINCS =  -I"c:/dev-cpp/include/c++/3.3.1"  -I"c:/dev-cpp/include/c++/3.3.1/mingw32"  -I"c:/dev-cpp/include/c++/3.3.1/backward"  -I"c:/dev-cpp/lib/gcc-lib/mingw32/3.3.1/include"  -I"c:/dev-cpp/include" 
+BIN  = torque_ide.exe
+CXXFLAGS = $(CXXINCS)-fno-rtti -fno-exceptions -fno-pcc-struct-return -fstrict-aliasing -Wall -D__WXMSW__ -D__GNUWIN32__ -D__WIN95__   
+CFLAGS = $(INCS)-fno-rtti -fno-exceptions -fno-pcc-struct-return -fstrict-aliasing -Wall -fvtable-thunks -D__WXMSW__ -D__GNUWIN32__ -D__WIN95__   
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before torque_ide.exe all-after
+
+
+clean: clean-custom
+	rm -f $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CPP) $(LINKOBJ) -o "torque_ide.exe" $(LIBS)
+
+torque_ide.o: torque_ide.cpp
+	$(CPP) -c torque_ide.cpp -o torque_ide.o $(CXXFLAGS)
+
+torque_ide_frame.o: torque_ide_frame.cpp
+	$(CPP) -c torque_ide_frame.cpp -o torque_ide_frame.o $(CXXFLAGS)
