@@ -1,4 +1,9 @@
-mondrian ICON "mondrian.ico"
+torque ICON "torque.ico"
 
-#define TORQUEIDE_QUIT 	1
-#define TORQUEIDE_ABOUT 	102
+// Makes the exe larger, but it includes 
+// standard icons and cursors
+#if defined(_WIN32_)
+    #include "wx/msw/wx.rc" 
+#endif
+
+

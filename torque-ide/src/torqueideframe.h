@@ -4,7 +4,7 @@
  * Torque IDE -- An open source integrated development environment for the
  *   Torque Game Engine
  *
- * Copyright (C) 2004 Robert Pierce
+ * Copyright (C) 2005 Robert Pierce
  *
  * Refer to the file CONTRIB.txt for the people who have helped.
  *
@@ -35,11 +35,11 @@ class TorqueIDEFrame : public wxFrame
 		/**
 		* Constructor
 		*/
-		TorqueIDEFrame( const wxChar *title );
+		TorqueIDEFrame(const wxString &title);
 
 		/**
-		 * Destructor
-		 */
+		* Destructor
+		*/
 		~TorqueIDEFrame();
 
 		/**
@@ -98,40 +98,93 @@ class TorqueIDEFrame : public wxFrame
 		void OnMenuEditClear(wxCommandEvent &event);
 
 		/**
-		* Processes menu Help|Help
+		* Processes menu Edit|Select All
 		*/
-		void OnMenuHelpHelp(wxCommandEvent &event);
+		void OnMenuEditSelectAll(wxCommandEvent &event);
+
+		/**
+		* Processes menu Edit|Select Line
+		*/
+		void OnMenuEditSelectLine(wxCommandEvent &event);
+
+		/**
+		* Processes menu Search|Find
+		*/
+		void OnMenuSearchFind(wxCommandEvent &event);
+
+		/**
+		* Processes menu Search|Find Next
+		*/
+		void OnMenuSearchFindNext(wxCommandEvent &event);
+
+		/**
+		* Processes menu Search|Replace
+		*/
+		void OnMenuSearchReplace(wxCommandEvent &event);
+
+		/**
+		* Processes menu Search|Replace Next
+		*/
+		void OnMenuSearchReplaceNext(wxCommandEvent &event);
+
+		/**
+		* Processes menu Search|Goto
+		*/
+		void OnMenuSearchGoto(wxCommandEvent &event);
 
 		/**
 		* Processes menu Help|About
 		*/
 		void OnMenuHelpAbout(wxCommandEvent &event);
 
+		/**
+		* Processes menu Help|Help
+		*/
+		void OnMenuHelpHelp(wxCommandEvent &event);
+
 	protected:
 		DECLARE_EVENT_TABLE()
 
-  private:
+	private:
+		// Editor
 		wxStyledTextCtrl *scintilla;
+		
+		// Statusbar
 		wxStatusBar *statusbar;
+		void InitStatusBar();
+		
+		// Toolbar
 		wxToolBar *toolbar;
+		void InitToolBar();
+		
+		// Menu
 		wxMenuBar *menubar;
-		wxMenu *menu_file;
-		wxMenu *menu_edit;
-		wxMenu *menu_help;
+		void InitMenu();
 
 	enum
 	{
+		// File
 		MENU_FILE_NEW,
 		MENU_FILE_OPEN,
 		MENU_FILE_SAVE,
 		MENU_FILE_SAVEAS,
 		MENU_FILE_QUIT,
+		// Edit
 		MENU_EDIT_UNDO,
 		MENU_EDIT_REDO,
 		MENU_EDIT_CUT,
 		MENU_EDIT_COPY,
 		MENU_EDIT_PASTE,
 		MENU_EDIT_CLEAR,
+		MENU_EDIT_SELECTALL,
+		MENU_EDIT_SELECTLINE,
+		// Search
+		MENU_SEARCH_FIND,
+		MENU_SEARCH_FINDNEXT,
+		MENU_SEARCH_REPLACE,
+		MENU_SEARCH_REPLACENEXT,
+		MENU_SEARCH_GOTO,
+		// Help
 		MENU_HELP_ABOUT,
 		MENU_HELP_HELP
 	};

@@ -2,7 +2,7 @@
  * Torque IDE -- An open source integrated development environment for the
  *   Torque Game Engine
  *
- * Copyright (C) 2004 Robert Pierce
+ * Copyright (C) 2005 Robert Pierce
  *
  * Refer to the file CONTRIB.txt for the people who have helped.
  *
@@ -40,13 +40,19 @@ bool TorqueIDEApp::OnInit()
 {
 	TorqueIDEFrame *frame = new TorqueIDEFrame("Torque IDE");
 
+	frame->Layout();
 	frame->Show(TRUE);
 
-	frame->Maximize(!frame->IsMaximized()); // If the frame is not maximized, maximize it.
-	// TODO: Add option to choose whether or not to max the frame.
+//	frame->Maximize(!frame->IsMaximized()); // If the frame is not maximized, maximize it.
 
 	SetTopWindow(frame);
 
 
 	return TRUE;
+}
+
+int TorqueIDEApp::OnExit() 
+{
+	// TODO: Delete special global stuff here
+	return 0;
 }

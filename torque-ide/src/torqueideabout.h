@@ -4,7 +4,7 @@
  * Torque IDE -- An open source integrated development environment for the
  *   Torque Game Engine
  *
- * Copyright (C) 2004 Robert Pierce
+ * Copyright (C) 2005 Robert Pierce
  *
  * Refer to the file CONTRIB.txt for the people who have helped.
  *
@@ -45,7 +45,7 @@ class TorqueIDEAbout : public wxDialog
 		void SetText(const wxString& text);
 		
 	private:
-		wxStaticText *about_text;
+		wxStaticText *aboutText;
 		wxButton *ok;
 		
 };

@@ -2,7 +2,7 @@
  * Torque IDE -- An open source integrated development environment for the
  *   Torque Game Engine
  *
- * Copyright (C) 2004 Robert Pierce
+ * Copyright (C) 2005 Robert Pierce
  *
  * Refer to the file CONTRIB.txt for the people who have helped.
  *
@@ -36,11 +36,32 @@
 TorqueIDEAbout::TorqueIDEAbout(wxWindow *parent) 
 	: wxDialog(parent, -1, "About the Torque IDE", wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE)
 {
-	about_text = new wxStaticText(this, -1, "", wxPoint(5, 5), wxSize(100, 100), wxALIGN_CENTRE);
-	ok = new wxButton(this, wxID_OK, "Ok", wxPoint(5, 40));
+	SetAutoLayout(TRUE);
+	
+	wxLayoutConstraints *layout = new wxLayoutConstraints();
+	layout->top.SameAs(this, wxTop, 10);
+	layout->centreX.SameAs(this, wxCentreX);
+	layout->width.AsIs();
+	layout->height.AsIs();
+	
+	aboutText = new wxStaticText(this, -1, "", wxPoint(-1, -1), wxDefaultSize, wxALIGN_CENTER);
+	aboutText->SetConstraints(layout);
+	
+	layout = new wxLayoutConstraints();
+	layout->top.Below(aboutText, 10);
+	layout->centreX.SameAs(this, wxCentreX);
+	layout->width.PercentOf(this, wxWidth, 80);
+	layout->height.AsIs();
+	
+	ok = new wxButton(this, wxID_OK, "Ok", wxPoint(-1, -1));
+	ok->SetConstraints(layout);
+	
+	Layout();
 }
 
 void TorqueIDEAbout::SetText(const wxString& text)
 {
-	about_text->SetLabel(text);
+	aboutText->SetLabel(text);
+	
+	Layout(); // This command could have messed with the layout, so redo.
 }

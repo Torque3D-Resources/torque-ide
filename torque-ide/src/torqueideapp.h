@@ -2,7 +2,7 @@
  * Torque IDE -- An open source integrated development environment for the
  *   Torque Game Engine
  *
- * Copyright (C) 2004 Robert Pierce
+ * Copyright (C) 2005 Robert Pierce
  *
  * Refer to the file CONTRIB.txt for the people who have helped.
  *
@@ -31,11 +31,22 @@
 
 class TorqueIDEApp : public wxApp
 {
+	friend class TorqueIDEFrame;
+	friend class TorqueIDEAbout;
+
 	public:
 		/**
 		* Think of this as the "main" method.
 		*/
 		virtual bool OnInit();
+
+		/**
+		* Think of this as a destructor.
+		*/
+		virtual int OnExit();
+	
+	private:
+		TorqueIDEFrame *frame;
 };
 
 DECLARE_APP(TorqueIDEApp);
