@@ -91,6 +91,11 @@ class TorqueIDEFrame : public wxFrame
 	* Processes menu Edit|Paste
 	*/
 	void OnMenuEditPaste(wxCommandEvent &event);
+	
+	/**
+	* Processes menu Edit|Clear
+	*/
+	void OnMenuEditClear(wxCommandEvent &event);
 
 	/**
 	* Processes menu Help|Help
@@ -126,6 +131,7 @@ class TorqueIDEFrame : public wxFrame
 		MENU_EDIT_CUT,
 		MENU_EDIT_COPY,
 		MENU_EDIT_PASTE,
+		MENU_EDIT_CLEAR,
 		MENU_HELP_ABOUT,
 		MENU_HELP_HELP
 	};

@@ -56,6 +56,8 @@ TorqueIDEFrame::TorqueIDEFrame(const wxChar *title) : wxFrame((wxFrame *) NULL, 
 	menu_edit->Append(MENU_EDIT_CUT, "Cu&t", "Cuts the selection and moves it to the clipboard");
 	menu_edit->Append(MENU_EDIT_COPY, "&Copy", "Copies the selection to the clipboard");
 	menu_edit->Append(MENU_EDIT_PASTE, "&Paste", "Inserts the clipboard contents at the insertion point");
+	menu_edit->AppendSeparator();
+	menu_edit->Append(MENU_EDIT_CLEAR, "C&lear", "Clears the selection");
 	menubar->Append(menu_edit, "&Edit");
 	menu_help = new wxMenu();
 	menu_help->Append(MENU_HELP_ABOUT, "&About", "Displays the program information and copyright");
@@ -158,6 +160,7 @@ BEGIN_EVENT_TABLE(TorqueIDEFrame, wxFrame)
 	EVT_MENU(MENU_EDIT_CUT, TorqueIDEFrame::OnMenuEditCut)
 	EVT_MENU(MENU_EDIT_COPY, TorqueIDEFrame::OnMenuEditCopy)
 	EVT_MENU(MENU_EDIT_PASTE, TorqueIDEFrame::OnMenuEditPaste)
+	EVT_MENU(MENU_EDIT_CLEAR, TorqueIDEFrame::OnMenuEditClear)
 	// Help
 	EVT_MENU(MENU_HELP_HELP, TorqueIDEFrame::OnMenuHelpHelp)
 	EVT_MENU(MENU_HELP_ABOUT, TorqueIDEFrame::OnMenuHelpAbout)
@@ -173,7 +176,10 @@ void TorqueIDEFrame::OnMenuFileOpen(wxCommandEvent &event)
 	wxFileDialog *opendlg = new wxFileDialog(this, "Open", "", "", "TorqueSCRIPT Files(*.cs)|*.cs|All files(*.*)|*.*", wxOPEN, wxDefaultPosition);
 	if ( opendlg->ShowModal() == wxID_OK )
 	{
-		scintilla->LoadFile(opendlg->GetFilename());
+		// Debug purposes
+		//wxLogMessage(opendlg->GetDirectory()<<"/"<<opendlg->GetFilename());
+		scintilla->LoadFile(opendlg->GetDirectory()<<"/"<<opendlg->GetFilename());
+		scintilla->SetSavePoint();
 		SetStatusText(opendlg->GetFilename(), 1);
 	}
 	opendlg->Destroy();
@@ -181,7 +187,11 @@ void TorqueIDEFrame::OnMenuFileOpen(wxCommandEvent &event)
 
 void TorqueIDEFrame::OnMenuFileSave(wxCommandEvent &event)
 {
-  wxLogMessage("File Save Menu Selected");
+  if(scintilla->GetModify())
+	{
+		wxLogMessage("File is modified!");
+		scintilla->SetSavePoint();
+	}
 }
 
 void TorqueIDEFrame::OnMenuFileSaveAs(wxCommandEvent &event)
@@ -189,7 +199,10 @@ void TorqueIDEFrame::OnMenuFileSaveAs(wxCommandEvent &event)
 	wxFileDialog *savedlg = new wxFileDialog(this, "Save As", "", "", "TorqueSCRIPT Files(*.cs)|*.cs|All files(*.*)|*.*", wxSAVE, wxDefaultPosition);
 	if ( savedlg->ShowModal() == wxID_OK )
 	{
-		scintilla->SaveFile(savedlg->GetFilename());
+		// Debug purposes
+		//wxLogMessage(savedlg->GetDirectory()<<"/"<<savedlg->GetFilename());
+		scintilla->SaveFile(savedlg->GetDirectory()<<"/"<<savedlg->GetFilename());
+		scintilla->SetSavePoint();
 		SetStatusText(savedlg->GetFilename(), 1);
 	}
 	savedlg->Destroy();
@@ -226,17 +239,29 @@ void TorqueIDEFrame::OnMenuEditRedo(wxCommandEvent &event)
 
 void TorqueIDEFrame::OnMenuEditCut(wxCommandEvent &event)
 {
-  wxLogMessage("Edit Cut Menu Selected");
+  scintilla->Cut();
 }
 
 void TorqueIDEFrame::OnMenuEditCopy(wxCommandEvent &event)
 {
-  wxLogMessage("Edit Copy Menu Selected");
+  scintilla->Copy();
 }
 
 void TorqueIDEFrame::OnMenuEditPaste(wxCommandEvent &event)
 {
-  wxLogMessage("Edit Paste Menu Selected");
+  if(scintilla->CanPaste())
+	{
+		scintilla->Paste();
+	}
+	else
+	{
+		return;
+	}
+}
+
+void TorqueIDEFrame::OnMenuEditClear(wxCommandEvent &event)
+{
+  scintilla->Clear();
 }
 
 void TorqueIDEFrame::OnMenuHelpHelp(wxCommandEvent &event)
