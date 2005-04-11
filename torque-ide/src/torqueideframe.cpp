@@ -55,6 +55,9 @@ TorqueIDEFrame::TorqueIDEFrame(const wxString &title) : wxFrame ((wxFrame *)NULL
 {
 	scintilla = new TorqueIDESTC(this); // The other params default
 	
+	// Give the app our icon
+	SetIcon(wxIcon("torque")); // Does this mess with cross-platform abilities?
+	
 	// StatusBar
 	InitStatusBar();
 	
@@ -183,7 +186,7 @@ void TorqueIDEFrame::OnMenuFileNew(wxCommandEvent &event)
 
 void TorqueIDEFrame::OnMenuFileOpen(wxCommandEvent &event)
 {
-	wxFileDialog *dlg = new wxFileDialog(this, "Open", "", "", "TorqueSCRIPT Files(*.cs)|*.cs|All files(*.*)|*.*", wxOPEN, wxDefaultPosition);
+	wxFileDialog *dlg = new wxFileDialog(this, "Open", "", "", "TorqueSCRIPT Files(*.cs, *.gui, *.mis)|*.cs;*.gui;*.mis|All files(*.*)|*.*", wxOPEN, wxDefaultPosition);
 	if(dlg->ShowModal() == wxID_OK)
 	{
 		scintilla->LoadFile(dlg->GetPath());
