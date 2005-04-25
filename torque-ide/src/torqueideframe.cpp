@@ -44,21 +44,12 @@
     #include "torque.xpm"
 #endif
 
-#define TORQUEIDE_VER _T("0.2 Alpha") // The current version of the torque-ide using the wxWidgets "_T" macro
-#define TORQUEIDE_BUILD __DATE__ // The build date, set to the current date.
-
 #include "torqueideframe.h"
 #include "torqueideabout.h"
 #include "torqueidestc.h"
 
 TorqueIDEFrame::TorqueIDEFrame(const wxString &title) : wxFrame ((wxFrame *)NULL, wxID_ANY, title, wxDefaultPosition, wxSize(750,550), wxDEFAULT_FRAME_STYLE | wxNO_FULL_REPAINT_ON_RESIZE)
 {
-	/* Anyone care to try and get the wxNotebook to work?
-	panel = new wxPanel(this, MAIN_PANEL);
-	notebook = new wxNotebook(this, MAIN_NOTEBOOK);
-	CreateEditPage(notebook);
-	*/
-	
 	scintilla = new TorqueIDESTC(this);
 	
 	/**
@@ -84,24 +75,6 @@ TorqueIDEFrame::TorqueIDEFrame(const wxString &title) : wxFrame ((wxFrame *)NULL
 
 TorqueIDEFrame::~TorqueIDEFrame()
 {
-}
-
-/**
- * Construct new edit control tab
- */
-void CreateEditPage(wxNotebook *parent)
-{
-    TorqueIDESTC *scintilla = new TorqueIDESTC(parent);
-    
-    /**
-     * Scintilla initialization
-     */
-    // Margin for line numbers
-	scintilla->SetMarginWidth(0, 30);        // turn on the linenumbers margin, set width to 30pixels
-	scintilla->SetMarginWidth(1, 0);            // turn off the folding margin
-	scintilla->SetMarginType(0, 1);            // set margin type to linenumbers
-	
-	parent->AddPage(scintilla, "untitled", true);
 }
 
 /**
@@ -209,11 +182,6 @@ BEGIN_EVENT_TABLE(TorqueIDEFrame, wxFrame)
 	// Help
 	EVT_MENU(MENU_HELP_HELP, TorqueIDEFrame::OnMenuHelpHelp)
 	EVT_MENU(MENU_HELP_ABOUT, TorqueIDEFrame::OnMenuHelpAbout)
-	/**
-	 * Notebook Events
-	 */
-	EVT_NOTEBOOK_PAGE_CHANGED(MAIN_NOTEBOOK, TorqueIDEFrame::OnNotebook)
-	EVT_NOTEBOOK_PAGE_CHANGING(MAIN_NOTEBOOK, TorqueIDEFrame::OnNotebook)
 END_EVENT_TABLE()
 
 /**
@@ -221,7 +189,7 @@ END_EVENT_TABLE()
  */
 void TorqueIDEFrame::OnMenuFileNew(wxCommandEvent &event)
 {
-	CreateEditPage(notebook);
+	wxBell();
 }
 
 void TorqueIDEFrame::OnMenuFileOpen(wxCommandEvent &event)
@@ -229,7 +197,7 @@ void TorqueIDEFrame::OnMenuFileOpen(wxCommandEvent &event)
 	wxFileDialog *dlg = new wxFileDialog(this, _("Open"), "", "", _("TorqueSCRIPT Files(*.cs, *.gui, *.mis)|*.cs;*.gui;*.mis|All files(*.*)|*.*"), wxOPEN, wxDefaultPosition);
 	if(dlg->ShowModal() == wxID_OK)
 	{
-//		scintilla->LoadFile(dlg->GetPath());
+		scintilla->LoadFile(dlg->GetPath());
 		SetStatusText(dlg->GetFilename(), 1);
 	}
 	dlg->Destroy();
@@ -237,13 +205,11 @@ void TorqueIDEFrame::OnMenuFileOpen(wxCommandEvent &event)
 
 void TorqueIDEFrame::OnMenuFileSave(wxCommandEvent &event)
 {
-/*
 	if(scintilla->GetModify())
 	{
 		scintilla->SaveFile();
 		scintilla->SetSavePoint();
 	}
-*/
 }
 
 void TorqueIDEFrame::OnMenuFileSaveAs(wxCommandEvent &event)
@@ -264,7 +230,7 @@ void TorqueIDEFrame::OnMenuFileQuit(wxCommandEvent &event)
 	if(!scintilla->GetModify())
 	{
 		Close(FALSE);
-
+	}
 }
 
 void TorqueIDEFrame::OnMenuEditUndo(wxCommandEvent &event)
@@ -363,14 +329,6 @@ void TorqueIDEFrame::OnMenuHelpHelp(wxCommandEvent &event)
 void TorqueIDEFrame::OnMenuHelpAbout(wxCommandEvent &event)
 {
 	TorqueIDEAbout *dlg = new TorqueIDEAbout(this);
-	dlg->SetText(_("Torque IDE\nAn Open Source Project\nReleased under the GPL v2\n\nTiff Support is:\nCopyright (c) 1988-1997 Sam Leffler\nCopyright (c) 1991-1997 Silicon Graphics, Inc.\n\nThis software is based in part on the work of the Independent JPEG Group\n\nVersion: ${TORQUEIDE_VER}\nBuilt on: ${TORQUEIDE_BUILD}"));
+	dlg->SetText(_("Torque IDE\nAn Open Source Project\nReleased under the GPL v2\n\nTiff Support is:\nCopyright (c) 1988-1997 Sam Leffler\nCopyright (c) 1991-1997 Silicon Graphics, Inc.\n\nThis software is based in part on the work of the Independent JPEG Group"));
 	dlg->ShowModal();
-}
-
-/**
- * GUI Events
- */
-void TorqueIDEFrame::OnNotebook(wxNotebookEvent &event)
-{
-	event;
 }

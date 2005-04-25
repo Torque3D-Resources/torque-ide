@@ -142,20 +142,11 @@ class TorqueIDEFrame : public wxFrame
 		 * Processes menu Help|Help
 		 */
 		void OnMenuHelpHelp(wxCommandEvent &event);
-		
-		/**
-		 * Processes wxNotebook events
-		 */
-		void OnNotebook(wxNotebookEvent &event);
 
 	protected:
 		DECLARE_EVENT_TABLE()
 
 	private:
-		// Notebook
-		wxPanel *panel; // Contains wxNotebook and other widgets
-		wxNotebook *notebook;
-		
 		// Editor
 		TorqueIDESTC *scintilla;
 		
@@ -170,7 +161,6 @@ class TorqueIDEFrame : public wxFrame
 		// Menu
 		wxMenuBar *menuBar;
 		void InitMenu();
-		
 
 	/**
 	 * Menu Enumeration
@@ -202,17 +192,6 @@ class TorqueIDEFrame : public wxFrame
 		MENU_HELP_ABOUT,
 		MENU_HELP_HELP
 	};
-	
-	/**
-	 * GUI Control Enumeration
-	 */
-	enum
-	{
-		MAIN_PANEL,
-		MAIN_NOTEBOOK
-	};
 };
-
-void CreateEditPage(wxNotebook *parent); // Function to add tabs
 
 #endif _TORQUEIDEFRAME_H

@@ -38,9 +38,6 @@
 	wxApp::s_macHelpMenuTitleId = MENU_HELP_HELP;
 #endif 
 
-#include <wx/image.h>
-#include <wx/xrc/xmlres.h>
-
 #include "torqueideapp.h"
 #include "torqueideframe.h"
 
@@ -50,8 +47,6 @@ bool TorqueIDEApp::OnInit()
 {
 	TorqueIDEFrame *frame = new TorqueIDEFrame("torque-ide");
 
-	// Problem with generic wxNotebook implementation whereby it doesn't size
-	// properly unless you set the size again
 #ifdef __WXMOTIF__
 	int width, height;
 	frame->GetSize(&width, &height);
@@ -64,7 +59,6 @@ bool TorqueIDEApp::OnInit()
 //	frame->Maximize(!frame->IsMaximized()); // If the frame is not maximized, maximize it.
 
 	SetTopWindow(frame);
-
 
 	return TRUE;
 }
