@@ -44,7 +44,7 @@
     #include "torque.xpm"
 #endif
 
-#define TORQUEIDE_VER _T("0.25 Alpha") // The current version of the torque-ide using the wxWidgets "_T" macro
+#define TORQUEIDE_VER _T("0.2 Alpha") // The current version of the torque-ide using the wxWidgets "_T" macro
 #define TORQUEIDE_BUILD __DATE__ // The build date, set to the current date.
 
 #include "torqueideframe.h"
@@ -53,7 +53,21 @@
 
 TorqueIDEFrame::TorqueIDEFrame(const wxString &title) : wxFrame ((wxFrame *)NULL, wxID_ANY, title, wxDefaultPosition, wxSize(750,550), wxDEFAULT_FRAME_STYLE | wxNO_FULL_REPAINT_ON_RESIZE)
 {
-	scintilla = new TorqueIDESTC(this); // The other params default
+	/* Anyone care to try and get the wxNotebook to work?
+	panel = new wxPanel(this, MAIN_PANEL);
+	notebook = new wxNotebook(this, MAIN_NOTEBOOK);
+	CreateEditPage(notebook);
+	*/
+	
+	scintilla = new TorqueIDESTC(this);
+	
+	/**
+	 * Scintilla initialization
+	 */
+	// Margin for line numbers
+	scintilla->SetMarginWidth(0, 30);        // turn on the linenumbers margin, set width to 30pixels
+	scintilla->SetMarginWidth(1, 0);            // turn off the folding margin
+	scintilla->SetMarginType(0, 1);            // set margin type to linenumbers
 	
 	// Give the app our icon
 	SetIcon(wxIcon("torque")); // Does this mess with cross-platform abilities?
@@ -66,11 +80,6 @@ TorqueIDEFrame::TorqueIDEFrame(const wxString &title) : wxFrame ((wxFrame *)NULL
 
 	// Menu
 	InitMenu();
-
-	// Margin for line numbers
-	scintilla->SetMarginWidth(0, 30);        // turn on the linenumbers margin, set width to 30pixels
-	scintilla->SetMarginWidth(1, 0);            // turn off the folding margin
-	scintilla->SetMarginType(0, 1);            // set margin type to linenumbers
 }
 
 TorqueIDEFrame::~TorqueIDEFrame()
@@ -78,8 +87,26 @@ TorqueIDEFrame::~TorqueIDEFrame()
 }
 
 /**
-* Construct MenuBar and Menus
-*/
+ * Construct new edit control tab
+ */
+void CreateEditPage(wxNotebook *parent)
+{
+    TorqueIDESTC *scintilla = new TorqueIDESTC(parent);
+    
+    /**
+     * Scintilla initialization
+     */
+    // Margin for line numbers
+	scintilla->SetMarginWidth(0, 30);        // turn on the linenumbers margin, set width to 30pixels
+	scintilla->SetMarginWidth(1, 0);            // turn off the folding margin
+	scintilla->SetMarginType(0, 1);            // set margin type to linenumbers
+	
+	parent->AddPage(scintilla, "untitled", true);
+}
+
+/**
+ * Construct MenuBar and Menus
+ */
 void TorqueIDEFrame::InitMenu()
 {
 	wxMenu *menu_file;
@@ -87,72 +114,77 @@ void TorqueIDEFrame::InitMenu()
 	wxMenu *menu_search;
 	wxMenu *menu_help;
 	
-	menubar = new wxMenuBar();
+	menuBar = new wxMenuBar();
 	
 	// File
 	menu_file = new wxMenu();
-	menu_file->Append(MENU_FILE_NEW, "&New", "Creates a new document");
-	menu_file->Append(MENU_FILE_OPEN, "&Open", "Opens an existing document");
-	menu_file->Append(MENU_FILE_SAVE, "&Save", "Saves the document");
-	menu_file->Append(MENU_FILE_SAVEAS, "Save &As", "Saves the document with a new name");
+	menu_file->Append(MENU_FILE_NEW, _("&New"), _("Creates a new document"));
+	menu_file->Append(MENU_FILE_OPEN, _("&Open"), _("Opens an existing document"));
+	menu_file->Append(MENU_FILE_SAVE, _("&Save"), _("Saves the document"));
+	menu_file->Append(MENU_FILE_SAVEAS, _("Save &As"), _("Saves the document with a new name"));
 	menu_file->AppendSeparator();
-	menu_file->Append(MENU_FILE_QUIT, "&Quit", "Quits the application; prompts to save documents");
-	menubar->Append(menu_file, "&File");
+	menu_file->Append(MENU_FILE_QUIT, _("&Quit"), _("Quits the application; prompts to save documents"));
+	menuBar->Append(menu_file, _("&File"));
 	
 	// Edit
 	menu_edit = new wxMenu();
-	menu_edit->Append(MENU_EDIT_UNDO, "&Undo", "Undoes the last action");
-	menu_edit->Append(MENU_EDIT_REDO, "&Redo", "Redoes the previously undone action");
+	menu_edit->Append(MENU_EDIT_UNDO, _("&Undo"), _("Undoes the last action"));
+	menu_edit->Append(MENU_EDIT_REDO, _("&Redo"), _("Redoes the previously undone action"));
 	menu_edit->AppendSeparator();
-	menu_edit->Append(MENU_EDIT_CUT, "Cu&t", "Cuts the selection and moves it to the clipboard");
-	menu_edit->Append(MENU_EDIT_COPY, "&Copy", "Copies the selection to the clipboard");
-	menu_edit->Append(MENU_EDIT_PASTE, "&Paste", "Inserts the clipboard contents at the insertion point");
+	menu_edit->Append(MENU_EDIT_CUT, _("Cu&t"), _("Cuts the selection and moves it to the clipboard"));
+	menu_edit->Append(MENU_EDIT_COPY, _("&Copy"), _("Copies the selection to the clipboard"));
+	menu_edit->Append(MENU_EDIT_PASTE, _("&Paste"), _("Inserts the clipboard contents at the insertion point"));
 	menu_edit->AppendSeparator();
-	menu_edit->Append(MENU_EDIT_CLEAR, "C&lear", "Clears the selection");
-	menu_edit->Append(MENU_EDIT_SELECTALL, "Select A&ll", "Selects the entire document");
-	menu_edit->Append(MENU_EDIT_SELECTLINE, "Select Lin&e", "Selects the current line");
-	menubar->Append(menu_edit, "&Edit");
+	menu_edit->Append(MENU_EDIT_CLEAR, _("C&lear"), _("Clears the selection"));
+	menu_edit->Append(MENU_EDIT_SELECTALL, _("Select A&ll"), _("Selects the entire document"));
+	menu_edit->Append(MENU_EDIT_SELECTLINE, _("Select Lin&e"), _("Selects the current line"));
+	menuBar->Append(menu_edit, _("&Edit"));
 	
 	// Search
 	menu_search = new wxMenu();
-	menu_search->Append(MENU_SEARCH_FIND, "&Find", "Finds the specified text");
-	menu_search->Append(MENU_SEARCH_FINDNEXT, "Find &Next", "Finds the next occurence of the specified text");
-	menu_search->Append(MENU_SEARCH_REPLACE, "&Replace", "Replaces the specified text with different text");
-	menu_search->Append(MENU_SEARCH_REPLACENEXT, "R&eplace Next", "Replaces the next occurence of the specified text");
+	menu_search->Append(MENU_SEARCH_FIND, _("&Find"), _("Finds the specified text"));
+	menu_search->Append(MENU_SEARCH_FINDNEXT, _("Find &Next"), _("Finds the next occurence of the specified text"));
+	menu_search->Append(MENU_SEARCH_REPLACE, _("&Replace"), _("Replaces the specified text with different text"));
+	menu_search->Append(MENU_SEARCH_REPLACENEXT, _("R&eplace Next"), _("Replaces the next occurence of the specified text"));
 	menu_search->AppendSeparator();
-	menu_search->Append(MENU_SEARCH_GOTO, "&Goto", "Goto the specified line");
-	menubar->Append(menu_search, "&Search");
+	menu_search->Append(MENU_SEARCH_GOTO, _("&Goto"), _("Goto the specified line"));
+	menuBar->Append(menu_search, _("&Search"));
 	
 	// Help
 	menu_help = new wxMenu();
-	menu_help->Append(MENU_HELP_ABOUT, "&About", "Displays the program information and copyright");
+	menu_help->Append(MENU_HELP_ABOUT, _("&About"), _("Displays the program information and copyright"));
 	menu_help->AppendSeparator();
-	menu_help->Append(MENU_HELP_HELP, "&Help", "Displays the online documentation");
-	menubar->Append(menu_help, "&Help");
+	menu_help->Append(MENU_HELP_HELP, _("&Help"), _("Displays the online documentation"));
+	menuBar->Append(menu_help, _("&Help"));
 
-	SetMenuBar(menubar); // Make this the TorqueIDE's menubar
+	SetMenuBar(menuBar); // Make this the TorqueIDE's menubar
+	
+	menuBar = menuBar;
 }
 
 /**
-* Construct ToolBar and Buttons
-*/
+ * Construct ToolBar and Buttons
+ */
 void TorqueIDEFrame::InitToolBar()
 {
-	toolbar = CreateToolBar(wxNO_BORDER | wxTB_HORIZONTAL | wxTB_3DBUTTONS);
+	toolBar = CreateToolBar(wxNO_BORDER | wxTB_HORIZONTAL | wxTB_3DBUTTONS);
 }
 
 /**
-* Construct StatusBar
-*/
+ * Construct StatusBar
+ */
 void TorqueIDEFrame::InitStatusBar()
 {
-	statusbar = CreateStatusBar(2);
+	statusBar = CreateStatusBar(2);
 }
 
 /**
-* Events and Event Handlers
-*/
+ * Events and Event Handlers
+ */
 BEGIN_EVENT_TABLE(TorqueIDEFrame, wxFrame)
+	/**
+	 * Menu Events
+	 */
 	// File
 	EVT_MENU(MENU_FILE_NEW, TorqueIDEFrame::OnMenuFileNew)
 	EVT_MENU(MENU_FILE_OPEN, TorqueIDEFrame::OnMenuFileOpen)
@@ -177,19 +209,27 @@ BEGIN_EVENT_TABLE(TorqueIDEFrame, wxFrame)
 	// Help
 	EVT_MENU(MENU_HELP_HELP, TorqueIDEFrame::OnMenuHelpHelp)
 	EVT_MENU(MENU_HELP_ABOUT, TorqueIDEFrame::OnMenuHelpAbout)
+	/**
+	 * Notebook Events
+	 */
+	EVT_NOTEBOOK_PAGE_CHANGED(MAIN_NOTEBOOK, TorqueIDEFrame::OnNotebook)
+	EVT_NOTEBOOK_PAGE_CHANGING(MAIN_NOTEBOOK, TorqueIDEFrame::OnNotebook)
 END_EVENT_TABLE()
 
+/**
+ * Menu Events
+ */
 void TorqueIDEFrame::OnMenuFileNew(wxCommandEvent &event)
 {
-	wxBell();
+	CreateEditPage(notebook);
 }
 
 void TorqueIDEFrame::OnMenuFileOpen(wxCommandEvent &event)
 {
-	wxFileDialog *dlg = new wxFileDialog(this, "Open", "", "", "TorqueSCRIPT Files(*.cs, *.gui, *.mis)|*.cs;*.gui;*.mis|All files(*.*)|*.*", wxOPEN, wxDefaultPosition);
+	wxFileDialog *dlg = new wxFileDialog(this, _("Open"), "", "", _("TorqueSCRIPT Files(*.cs, *.gui, *.mis)|*.cs;*.gui;*.mis|All files(*.*)|*.*"), wxOPEN, wxDefaultPosition);
 	if(dlg->ShowModal() == wxID_OK)
 	{
-		scintilla->LoadFile(dlg->GetPath());
+//		scintilla->LoadFile(dlg->GetPath());
 		SetStatusText(dlg->GetFilename(), 1);
 	}
 	dlg->Destroy();
@@ -197,20 +237,23 @@ void TorqueIDEFrame::OnMenuFileOpen(wxCommandEvent &event)
 
 void TorqueIDEFrame::OnMenuFileSave(wxCommandEvent &event)
 {
+/*
 	if(scintilla->GetModify())
 	{
 		scintilla->SaveFile();
 		scintilla->SetSavePoint();
 	}
+*/
 }
 
 void TorqueIDEFrame::OnMenuFileSaveAs(wxCommandEvent &event)
 {
-	wxFileDialog *dlg = new wxFileDialog(this, "Save As", "", "", "TorqueSCRIPT Files(*.cs)|*.cs|All files(*.*)|*.*", wxSAVE, wxDefaultPosition);
+	wxFileDialog *dlg = new wxFileDialog(this, _("Save As"), "", "", _("TorqueSCRIPT Files(*.cs)|*.cs|All files(*.*)|*.*"), wxSAVE, wxDefaultPosition);
 	if(dlg->ShowModal() == wxID_OK)
 	{
 		scintilla->SaveFile(dlg->GetPath());
 		scintilla->SetSavePoint();
+		
 		SetStatusText(dlg->GetPath(), 1); // GetFilename for just the filename
 	}
 	dlg->Destroy();
@@ -221,7 +264,7 @@ void TorqueIDEFrame::OnMenuFileQuit(wxCommandEvent &event)
 	if(!scintilla->GetModify())
 	{
 		Close(FALSE);
-	}
+
 }
 
 void TorqueIDEFrame::OnMenuEditUndo(wxCommandEvent &event)
@@ -266,7 +309,7 @@ void TorqueIDEFrame::OnMenuEditPaste(wxCommandEvent &event)
 	}
 	else
 	{
-		return;
+		wxBell();
 	}
 }
 
@@ -320,6 +363,14 @@ void TorqueIDEFrame::OnMenuHelpHelp(wxCommandEvent &event)
 void TorqueIDEFrame::OnMenuHelpAbout(wxCommandEvent &event)
 {
 	TorqueIDEAbout *dlg = new TorqueIDEAbout(this);
-	dlg->SetText("Torque IDE\nAn Open Source Project\nReleased under the GPL v2");
+	dlg->SetText(_("Torque IDE\nAn Open Source Project\nReleased under the GPL v2\n\nTiff Support is:\nCopyright (c) 1988-1997 Sam Leffler\nCopyright (c) 1991-1997 Silicon Graphics, Inc.\n\nThis software is based in part on the work of the Independent JPEG Group\n\nVersion: ${TORQUEIDE_VER}\nBuilt on: ${TORQUEIDE_BUILD}"));
 	dlg->ShowModal();
+}
+
+/**
+ * GUI Events
+ */
+void TorqueIDEFrame::OnNotebook(wxNotebookEvent &event)
+{
+	event;
 }

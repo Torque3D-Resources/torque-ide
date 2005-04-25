@@ -34,134 +34,147 @@ class TorqueIDEFrame : public wxFrame
 {
 	public:
 		/**
-		* Constructor
-		*/
+		 * Constructor
+		 */
 		TorqueIDEFrame(const wxString &title);
 
 		/**
-		* Destructor
-		*/
+		 * Destructor
+		 */
 		~TorqueIDEFrame();
 
 		/**
-		* Processes menu File|New
-		*/
+		 * Processes menu File|New
+		 */
 		void OnMenuFileNew(wxCommandEvent &event);
 
 		/**
-		* Processes menu File|Open
-		*/
+		 * Processes menu File|Open
+		 */
 		void OnMenuFileOpen(wxCommandEvent &event);
 
 		/**
-		* Processes menu File|Save
-		*/
+		 * Processes menu File|Save
+		 */
 		void OnMenuFileSave(wxCommandEvent &event);
 
 		/**
-		* Processes menu File|Save As
-		*/
+		 * Processes menu File|Save As
+		 */
 		void OnMenuFileSaveAs(wxCommandEvent &event);
 
 		/**
-		* Processes menu File|Quit
-		*/
+		 * Processes menu File|Quit
+		 */
 		void OnMenuFileQuit(wxCommandEvent &event);
 
 		/**
-		* Processes menu Edit|Undo
-		*/
+		 * Processes menu Edit|Undo
+		 */
 		void OnMenuEditUndo(wxCommandEvent &event);
 
 		/**
-		* Processes menu Edit|Redo
-		*/
+		 * Processes menu Edit|Redo
+		 */
 		void OnMenuEditRedo(wxCommandEvent &event);
 
 		/**
-		* Processes menu Edit|Cut
-		*/
+		 * Processes menu Edit|Cut
+		 */
 		void OnMenuEditCut(wxCommandEvent &event);
 
 		/**
-		* Processes menu Edit|Copy
-		*/
+		 * Processes menu Edit|Copy
+		 */
 		void OnMenuEditCopy(wxCommandEvent &event);
 
 		/**
-		* Processes menu Edit|Paste
-		*/
+		 * Processes menu Edit|Paste
+		 */
 		void OnMenuEditPaste(wxCommandEvent &event);
 
 		/**
-		* Processes menu Edit|Clear
-		*/
+		 * Processes menu Edit|Clear
+		 */
 		void OnMenuEditClear(wxCommandEvent &event);
 
 		/**
-		* Processes menu Edit|Select All
-		*/
+		 * Processes menu Edit|Select All
+		 */
 		void OnMenuEditSelectAll(wxCommandEvent &event);
 
 		/**
-		* Processes menu Edit|Select Line
-		*/
+		 * Processes menu Edit|Select Line
+		 */
 		void OnMenuEditSelectLine(wxCommandEvent &event);
 
 		/**
-		* Processes menu Search|Find
-		*/
+		 * Processes menu Search|Find
+		 */
 		void OnMenuSearchFind(wxCommandEvent &event);
 
 		/**
-		* Processes menu Search|Find Next
-		*/
+		 * Processes menu Search|Find Next
+		 */
 		void OnMenuSearchFindNext(wxCommandEvent &event);
 
 		/**
-		* Processes menu Search|Replace
-		*/
+		 * Processes menu Search|Replace
+		 */
 		void OnMenuSearchReplace(wxCommandEvent &event);
 
 		/**
-		* Processes menu Search|Replace Next
-		*/
+		 * Processes menu Search|Replace Next
+		 */
 		void OnMenuSearchReplaceNext(wxCommandEvent &event);
 
 		/**
-		* Processes menu Search|Goto
-		*/
+		 * Processes menu Search|Goto
+		 */
 		void OnMenuSearchGoto(wxCommandEvent &event);
 
 		/**
-		* Processes menu Help|About
-		*/
+		 * Processes menu Help|About
+		 */
 		void OnMenuHelpAbout(wxCommandEvent &event);
 
 		/**
-		* Processes menu Help|Help
-		*/
+		 * Processes menu Help|Help
+		 */
 		void OnMenuHelpHelp(wxCommandEvent &event);
+		
+		/**
+		 * Processes wxNotebook events
+		 */
+		void OnNotebook(wxNotebookEvent &event);
 
 	protected:
 		DECLARE_EVENT_TABLE()
 
 	private:
+		// Notebook
+		wxPanel *panel; // Contains wxNotebook and other widgets
+		wxNotebook *notebook;
+		
 		// Editor
 		TorqueIDESTC *scintilla;
 		
 		// Statusbar
-		wxStatusBar *statusbar;
+		wxStatusBar *statusBar;
 		void InitStatusBar();
 		
 		// Toolbar
-		wxToolBar *toolbar;
+		wxToolBar *toolBar;
 		void InitToolBar();
 		
 		// Menu
-		wxMenuBar *menubar;
+		wxMenuBar *menuBar;
 		void InitMenu();
+		
 
+	/**
+	 * Menu Enumeration
+	 */
 	enum
 	{
 		// File
@@ -189,6 +202,17 @@ class TorqueIDEFrame : public wxFrame
 		MENU_HELP_ABOUT,
 		MENU_HELP_HELP
 	};
+	
+	/**
+	 * GUI Control Enumeration
+	 */
+	enum
+	{
+		MAIN_PANEL,
+		MAIN_NOTEBOOK
+	};
 };
+
+void CreateEditPage(wxNotebook *parent); // Function to add tabs
 
 #endif _TORQUEIDEFRAME_H

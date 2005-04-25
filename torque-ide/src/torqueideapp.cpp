@@ -31,6 +31,16 @@
 	#include <wx/wx.h>
 #endif
 
+#ifdef __WXMAC__
+	// Places About menu where Mac users are used to see it
+	wxApp::s_macAboutMenuItemId = MENU_HELP_ABOUT;
+	// Same as above, except for the Help menu.
+	wxApp::s_macHelpMenuTitleId = MENU_HELP_HELP;
+#endif 
+
+#include <wx/image.h>
+#include <wx/xrc/xmlres.h>
+
 #include "torqueideapp.h"
 #include "torqueideframe.h"
 
@@ -38,8 +48,16 @@ IMPLEMENT_APP(TorqueIDEApp)
 
 bool TorqueIDEApp::OnInit()
 {
-	TorqueIDEFrame *frame = new TorqueIDEFrame("Torque IDE");
+	TorqueIDEFrame *frame = new TorqueIDEFrame("torque-ide");
 
+	// Problem with generic wxNotebook implementation whereby it doesn't size
+	// properly unless you set the size again
+#ifdef __WXMOTIF__
+	int width, height;
+	frame->GetSize(&width, &height);
+	frame->SetSize(wxDefaultCoord, wxDefaultCoord, width, height);
+#endif
+	
 	frame->Layout();
 	frame->Show(TRUE);
 
