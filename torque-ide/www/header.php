@@ -1,9 +1,11 @@
 <?php
 $page[0] = "Summary";
-$page[1] = "SourceForge Project";
+$page[1] = "Forums";
+$page[2] = "SourceForge Project";
 
 $page_href[0] = "index.php";
-$page_href[1] = "http://sourceforge.net/projects/torque-ide";
+$page_href[1] = "http://torque-ide.sourceforge.net/phpbb";
+$page_href[2] = "http://sourceforge.net/projects/torque-ide";
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -26,20 +28,20 @@ $page_href[1] = "http://sourceforge.net/projects/torque-ide";
 		<div id="navcontainer">
 			<ul id="navlist">
 <?php
-            //<li><a href="index.php">Summary</a></li>
-				//<li id="active"><a href="sourceforge.php" id="current">SourceForge Info</a></li>
-            for($i=0; $i < count($page); $i++)
-            {
-               if($i == $page_id)
-               {
-                  $echo = "<li id=\"active\"><a href=\"$page_href[$i]\" id=\"current\">$page[$i]</a></li>";
-               }
-               else
-               {
-                  $echo = "<li><a href=\"$page_href[$i]\">$page[$i]</a></li>";
-               }
-               echo $echo;
-            }
+   //<li><a href="index.php">Summary</a></li>
+   //<li id="active"><a href="sourceforge.php" id="current">SourceForge Info</a></li>
+   for($i=0; $i < count($page); $i++)
+   {
+      if($i == $page_id)
+      {
+         $echo = "<li id=\"active\"><a href=\"$page_href[$i]\" id=\"current\">$page[$i]</a></li>";
+      }
+      else
+      {
+         $echo = "<li><a href=\"$page_href[$i]\">$page[$i]</a></li>";
+      }
+      echo $echo;
+   }
 ?>
 			</ul>
 		</div> 
@@ -47,11 +49,15 @@ $page_href[1] = "http://sourceforge.net/projects/torque-ide";
 			<tr>
 					<td valign="top" class="leftColumn">
 						<div id="sideBarNews">
-							<div id="newsHeader">News</div>
+							<div id="newsHeader">SourceForge.net</div>
 							<div id="sideBarNewsContent">
-								<!--<div class="newsItem">A re-engineering of your current world view will reaffirm your online presence enabling a more effervescent solution.</div>
-								<div class="readNewsLink"><a href="index.php">Read More</a></div>-->
-							</div>
+<?php
+   //include('http://sourceforge.net/export/projnews.php?group_id=128924&limit=5&flat=0&show_summaries=1');
+   include('http://sourceforge.net/export/projhtml.php?group_id=128924&mode=full&no_table=1');
+?>
+								<!--<div class="newsItem"><a href="index.php">GarageGames</div>
+								<div class="readNewsLink">Read More</a></div>-->
+                     </div>
 						</div>
                   <br /><br /><br />
                   <div align="center"><a href="http://sourceforge.net"><img src="http://sourceforge.net/sflogo.php?group_id=128924&amp;type=5" border="0" alt="SourceForge.net Logo" /></a></div>
