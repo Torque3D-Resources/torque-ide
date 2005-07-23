@@ -1,11 +1,19 @@
 <?php
-$page[0] = "Summary";
-$page[1] = "Forums";
-$page[2] = "SourceForge Project";
-
-$page_href[0] = "index.php";
-$page_href[1] = "http://torque-ide.sourceforge.net/phpbb";
-$page_href[2] = "http://sourceforge.net/projects/torque-ide";
+// With this latest change (the id being decided by an incremented variable [$page_num]), I most likely will need to change the "correct tab" algorithm
+//   to make this more dynamic, heh.
+$page_num = 0;
+$page[$page_num] = "Summary";
+$page_href[$page_num] = "index.php";
+$page_num++;
+$page[$page_num] = "News";
+$page_href[$page_num] = "news.php";
+$page_num++;
+$page[$page_num] = "Forums";
+$page_href[$page_num] = "http://torque-ide.sourceforge.net/phpbb";
+$page_num++;
+$page[$page_num] = "SourceForge Project";
+$page_href[$page_num] = "http://sourceforge.net/projects/torque-ide";
+$page_num++;
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -52,7 +60,6 @@ $page_href[2] = "http://sourceforge.net/projects/torque-ide";
 							<div id="newsHeader">SourceForge.net</div>
 							<div id="sideBarNewsContent">
 <?php
-   //include('http://sourceforge.net/export/projnews.php?group_id=128924&limit=5&flat=0&show_summaries=1');
    include('http://sourceforge.net/export/projhtml.php?group_id=128924&mode=full&no_table=1');
 ?>
 								<!--<div class="newsItem"><a href="index.php">GarageGames</div>
@@ -63,3 +70,4 @@ $page_href[2] = "http://sourceforge.net/projects/torque-ide";
                   <div align="center"><a href="http://sourceforge.net"><img src="http://sourceforge.net/sflogo.php?group_id=128924&amp;type=5" border="0" alt="SourceForge.net Logo" /></a></div>
 					</td>
 					<td valign="top" class="rightColumn">
+                        <div class="note">This is not to be confused with TIDE, a jEdit plugin that has similar features. <a href="http://torqueide.sourceforge.net">http://torqueide.sourceforge.net</a></div>
