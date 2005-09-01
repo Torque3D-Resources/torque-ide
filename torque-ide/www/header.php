@@ -8,12 +8,31 @@ $page_num++;
 $page[$page_num] = "News";
 $page_href[$page_num] = "news.php";
 $page_num++;
+/* Removed for now...
 $page[$page_num] = "Forums";
-$page_href[$page_num] = "http://torque-ide.sourceforge.net/phpbb";
+$page_href[$page_num] = "/phpbb";
 $page_num++;
+*/
 $page[$page_num] = "SourceForge Project";
 $page_href[$page_num] = "http://sourceforge.net/projects/torque-ide";
 $page_num++;
+
+// This new method is kindof inefficient, but it *does* work...
+function getPageId()
+{
+    global $page, $page_title;
+    
+    if(in_array($page_title, $page))
+    {
+        for($i=1; $i < count($page); $i++)
+        {
+            if($page[$i] == $page_title)
+            {
+                return($i);
+            }
+        }
+    }
+}
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -25,6 +44,37 @@ $page_num++;
 <meta name="keywords" content="Layout2, 404 creative studios" />
 <meta name="description" content="simple css driven layout" />
 <link href="boldblue2.css" type="text/css" rel="stylesheet" />
+<style type="text/css">
+.showstate{ /*Definition for state toggling image */
+cursor:hand;
+cursor:pointer;
+float: right;
+margin-top: -2px;
+margin-right: 3px;
+font-size: xx-large;
+}
+
+.headers{
+width: 400px;
+font-size: 120%;
+font-weight: bold;
+border: 1px solid black;
+background-color: lightyellow;
+}
+
+.switchcontent{
+border-top-width: 0;
+}
+</style>
+<script type="text/javascript" src="torque-ide.js">
+//<!--
+/***********************************************
+* Switch Content script II- © Dynamic Drive (www.dynamicdrive.com)
+* This notice must stay intact for legal use. Last updated April 2nd, 2005.
+* Visit http://www.dynamicdrive.com/ for full source code
+***********************************************/
+//-->
+</script>
 </head>
 <body>
 <div id="container">
@@ -38,6 +88,7 @@ $page_num++;
 <?php
    //<li><a href="index.php">Summary</a></li>
    //<li id="active"><a href="sourceforge.php" id="current">SourceForge Info</a></li>
+   $page_id = getPageId();
    for($i=0; $i < count($page); $i++)
    {
       if($i == $page_id)
@@ -57,8 +108,8 @@ $page_num++;
 			<tr>
 					<td valign="top" class="leftColumn">
 						<div id="sideBarNews">
-							<div id="newsHeader">SourceForge.net</div>
-							<div id="sideBarNewsContent">
+							<div id="newsHeader"><a class="showstate" onClick="expandcontent(this, 'sideBarNewsContent')">-</a>SourceForge.net</div>
+							<div id="sideBarNewsContent" class="switchcontent">
 <?php
    include('http://sourceforge.net/export/projhtml.php?group_id=128924&mode=full&no_table=1');
 ?>

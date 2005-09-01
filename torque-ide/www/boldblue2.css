@@ -30,6 +30,7 @@ blockquote {font-family:"Trebuchet MS",helvetica,sans-serif; color:#004A66; font
 #divPageContent {border-top:3px solid #FF8000; border-bottom:3px solid #FF8000; padding:0px 0px 10px 0px;  }
 #sideBarNewsContent {background-color:#EEE; padding:10px; }
 #newsHeader {height:22px; line-height:22px; color:#80FF00; font-family:"Trebuchet MS",helvetica,sans-serif; font-size:14px; padding:0px 5px 0px 5px; background-color:#004A66;  border-bottom:1px solid #FFF; }
+#newsHeader a {};
 
 .leftColumn { padding:0p 5px 0px 5px; width:170px;}
 .rightColumn {padding:0px 10px 10px 10px; border-left:1px dashed #CCC;}

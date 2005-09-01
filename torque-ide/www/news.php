@@ -1,5 +1,5 @@
 <?php
-$page_id = 1;
+$page_title = "News";
 
 include("./header.php");
 ?>
