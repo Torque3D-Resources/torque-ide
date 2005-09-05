@@ -4,7 +4,7 @@ CFLAGS+=-Wall -fsigned-char `wx-config --cppflags`
 LDFLAGS+=`wx-config --ldflags`
 # STATICFLAGS=-Wl,-Bstatic
 STATICFLAGS=-static
-LIBS+=`wx-config --libs core,base,stc`
+LIBS+=`wx-config --libs std,stc`
 BINARY=torque-ide
 INSTALL=install
 
