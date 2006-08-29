@@ -41,7 +41,7 @@ class TorqueIDESTC : public wxStyledTextCtrl
 			const wxPoint &pos = wxDefaultPosition,
 			const wxSize &size = wxDefaultSize,
 			long style = wxSUNKEN_BORDER|wxVSCROLL
-        );
+       		 );
 
 		/**
 		 * Destructor

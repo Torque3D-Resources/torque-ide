@@ -61,7 +61,7 @@ TorqueIDEFrame::TorqueIDEFrame(const wxString &title) : wxFrame ((wxFrame *)NULL
 	scintilla->SetMarginType(0, 1);            // set margin type to linenumbers
 	
 	// Give the app our icon
-	SetIcon(wxIcon("torque")); // Does this mess with cross-platform abilities?
+	SetIcon(wxIcon(_("torque"))); // Does this mess with cross-platform abilities?
 	
 	// StatusBar
 	InitStatusBar();
@@ -194,7 +194,7 @@ void TorqueIDEFrame::OnMenuFileNew(wxCommandEvent &event)
 
 void TorqueIDEFrame::OnMenuFileOpen(wxCommandEvent &event)
 {
-	wxFileDialog *dlg = new wxFileDialog(this, _("Open"), "", "", _("TorqueSCRIPT Files(*.cs, *.gui, *.mis)|*.cs;*.gui;*.mis|All files(*.*)|*.*"), wxOPEN, wxDefaultPosition);
+	wxFileDialog *dlg = new wxFileDialog(this, _("Open"), _(""), _(""), _("TorqueSCRIPT Files(*.cs, *.gui, *.mis)|*.cs;*.gui;*.mis|All files(*.*)|*.*"), wxOPEN, wxDefaultPosition);
 	if(dlg->ShowModal() == wxID_OK)
 	{
 		scintilla->LoadFile(dlg->GetPath());
@@ -214,7 +214,7 @@ void TorqueIDEFrame::OnMenuFileSave(wxCommandEvent &event)
 
 void TorqueIDEFrame::OnMenuFileSaveAs(wxCommandEvent &event)
 {
-	wxFileDialog *dlg = new wxFileDialog(this, _("Save As"), "", "", _("TorqueSCRIPT Files(*.cs)|*.cs|All files(*.*)|*.*"), wxSAVE, wxDefaultPosition);
+	wxFileDialog *dlg = new wxFileDialog(this, _("Save As"), _(""), _(""), _("TorqueSCRIPT Files(*.cs)|*.cs|All files(*.*)|*.*"), wxSAVE, wxDefaultPosition);
 	if(dlg->ShowModal() == wxID_OK)
 	{
 		scintilla->SaveFile(dlg->GetPath());

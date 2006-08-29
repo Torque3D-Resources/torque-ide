@@ -21,7 +21,7 @@ torqueide: $(OBJ)
 	$(CXX) $(LDFLAGS) -o ../$(BINARY) $(OBJ) $(LIBS)
 
 clean:
-	rm -f ../*.o core $(BINARY)
+	rm -f ../src/*.o core $(BINARY)
 
 v: clean all
 	valgrind ../$(BINARY)

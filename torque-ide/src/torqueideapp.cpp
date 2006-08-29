@@ -45,7 +45,7 @@ IMPLEMENT_APP(TorqueIDEApp)
 
 bool TorqueIDEApp::OnInit()
 {
-	TorqueIDEFrame *frame = new TorqueIDEFrame("torque-ide");
+	TorqueIDEFrame *frame = new TorqueIDEFrame(_("torque-ide"));
 
 #ifdef __WXMOTIF__
 	int width, height;

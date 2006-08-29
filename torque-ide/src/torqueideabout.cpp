@@ -34,7 +34,7 @@
 #include "torqueideabout.h"
 
 TorqueIDEAbout::TorqueIDEAbout(wxWindow *parent) 
-	: wxDialog(parent, -1, "About the Torque IDE", wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE)
+	: wxDialog(parent, -1, _("About the Torque IDE"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE)
 {
 	SetAutoLayout(TRUE);
 	
@@ -44,7 +44,7 @@ TorqueIDEAbout::TorqueIDEAbout(wxWindow *parent)
 	layout->width.AsIs();
 	layout->height.AsIs();
 	
-	aboutText = new wxStaticText(this, -1, "", wxPoint(-1, -1), wxDefaultSize, wxALIGN_CENTER);
+	aboutText = new wxStaticText(this, -1, _(""), wxPoint(-1, -1), wxDefaultSize, wxALIGN_CENTER);
 	aboutText->SetConstraints(layout);
 	
 	layout = new wxLayoutConstraints();
@@ -53,7 +53,7 @@ TorqueIDEAbout::TorqueIDEAbout(wxWindow *parent)
 	layout->width.PercentOf(this, wxWidth, 80);
 	layout->height.AsIs();
 	
-	ok = new wxButton(this, wxID_OK, "Ok", wxPoint(-1, -1));
+	ok = new wxButton(this, wxID_OK, _("Ok"), wxPoint(-1, -1));
 	ok->SetConstraints(layout);
 	
 	Layout();
