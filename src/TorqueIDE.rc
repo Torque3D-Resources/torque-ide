@@ -1,4 +1,4 @@
-torque ICON "torque.ico"
+torque ICON "src/torque.ico"
 
 // Makes the exe larger, but it includes 
 // standard icons and cursors

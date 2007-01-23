@@ -63,14 +63,15 @@ TorqueIDEFrame::TorqueIDEFrame(const wxString &title) : wxFrame ((wxFrame *)NULL
 	// Give the app our icon
 	SetIcon(wxIcon(_("torque"))); // Does this mess with cross-platform abilities?
 	
+	// Menu
+	InitMenu();
+	
 	// StatusBar
 	InitStatusBar();
 	
 	// ToolBar
-	InitToolBar();
-
-	// Menu
-	InitMenu();
+	// Nothing in the toolbar yet, so it just takes space
+    //InitToolBar();
 }
 
 TorqueIDEFrame::~TorqueIDEFrame()
